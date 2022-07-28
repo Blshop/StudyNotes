@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -32,13 +32,17 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/add")
+@app.route("/add", methods={"GET", "POST"})
 def add():
-    # tech = Technology(tech_name="Python")
-    # cat = Category(cat_name="django")
-    # tech.techs.append(cat)
-    # db.session.add(tech)
-    # db.session.commit()
+    if request.method == "POST":
+        print(request.form)
+        if "technology" in request.form:
+            tech = Technology(tech_name="Python")
+            cat = Category(cat_name="django")
+            tech.techs.append(cat)
+            db.session.add(tech)
+            db.session.commit()
+
     return render_template("add.html")
 
 
