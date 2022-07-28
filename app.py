@@ -29,7 +29,12 @@ class Section(db.Model):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    technologies = Technology.query.all()
+    for tech in technologies:
+        print(tech.tech_name)
+    return render_template("index.html", tech=technologies)
+
+
 
 
 @app.route("/add", methods={"GET", "POST"})
